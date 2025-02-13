@@ -32,6 +32,7 @@ st.title("Clasificación de imágenes con CNN")
 uploaded_file = st.file_uploader("Sube una imagen", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
+    
     %matplotlib inline 
     pil_im = Image.open(uploaded_file)
     im = np.asarray(pil_im.resize((100,100)))
