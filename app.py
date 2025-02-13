@@ -43,4 +43,6 @@ if uploaded_file is not None:
     prediction = model.predict(im)
 
     # Mostrar resultado en Streamlit
-    st.write("Predicción:", prediction)
+    classes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    st.write('Predicción: ', classes[np.argmax(prediction)])
+    st.write("Porcentaje de predicción: ", prediction)
