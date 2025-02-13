@@ -21,10 +21,6 @@ model = tf.keras.models.load_model(output)
 
 st.success("Modelo cargado correctamente.")
 
-# Mostrar información del modelo en Streamlit
-st.write("Resumen del modelo:")
-st.text(model.summary())
-
 # --- Cargar una imagen para la predicción ---
 st.title("Clasificación de imágenes con CNN")
 
