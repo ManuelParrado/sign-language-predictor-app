@@ -2,6 +2,8 @@ import streamlit as st
 import gdown
 import os
 import tensorflow as tf
+from PIL import Image
+import numpy as np
 
 # Configurar la URL del modelo en Google Drive
 file_id = "1XWsHx07zWLDHRCAYjI87B1QSH2wX96Vp"
@@ -20,25 +22,25 @@ model = tf.keras.models.load_model(output)
 st.success("Modelo cargado correctamente.")
 
 # Mostrar información del modelo en Streamlit
-st.write(model.summary())
+st.write("Resumen del modelo:")
+st.text(model.summary())
 
 # --- Cargar una imagen para la predicción ---
-from matplotlib.pyplot import imshow
-from PIL import Image
-import numpy as np
-
 st.title("Clasificación de imágenes con CNN")
 
 uploaded_file = st.file_uploader("Sube una imagen", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
+    # Abrir imagen y cambiar tamaño
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Imagen cargada", use_column_width=True)
     
-    %matplotlib inline 
-    pil_im = Image.open(uploaded_file)
-    im = np.asarray(pil_im.resize((100,100)))
-    imshow(im)
-    print(im.shape)
-    
-    # Hacemos la prediccion. Como es una imagen solo añadimos un 1 al principio
-    im = im.reshape(1,100,100,3) # Una imagen de 100x100 con tres canales
+    # Preprocesar imagen
+    im = np.asarray(image.resize((100, 100))) / 255.0  # Normalización
+    im = im.reshape(1, 100, 100, 3)  # Ajustar dimensiones
+
+    # Hacer la predicción
+    prediction = model.predict(im)
+
+    # Mostrar resultado en Streamlit
     st.write("Predicción:", prediction)
