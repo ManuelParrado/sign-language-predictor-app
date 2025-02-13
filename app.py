@@ -23,7 +23,7 @@ st.success("Modelo cargado correctamente.")
 st.write(model.summary())
 
 # --- Cargar una imagen para la predicción ---
-import matplotlib.pyplot import imshow
+from matplotlib.pyplot import imshow
 from PIL import Image
 import numpy as np
 
