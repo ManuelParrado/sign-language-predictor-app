@@ -23,6 +23,7 @@ st.success("Modelo cargado correctamente.")
 st.write(model.summary())
 
 # --- Cargar una imagen para la predicción ---
+import matplotlib.pyplot import imshow
 from PIL import Image
 import numpy as np
 
@@ -31,13 +32,12 @@ st.title("Clasificación de imágenes con CNN")
 uploaded_file = st.file_uploader("Sube una imagen", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
-    image = Image.open(uploaded_file).resize((224, 224))  # Ajustar tamaño
-    st.image(image, caption="Imagen cargada", use_column_width=True)
-
-    # Preprocesar la imagen
-    img_array = np.array(image) / 255.0
-    img_array = np.expand_dims(img_array, axis=0)  # Agregar dimensión de batch
-
-    # Hacer predicción con el modelo cargado
-    prediction = model.predict(img_array)
+    %matplotlib inline 
+    pil_im = Image.open(uploaded_file)
+    im = np.asarray(pil_im.resize((100,100)))
+    imshow(im)
+    print(im.shape)
+    
+    # Hacemos la prediccion. Como es una imagen solo añadimos un 1 al principio
+    im = im.reshape(1,100,100,3) # Una imagen de 100x100 con tres canales
     st.write("Predicción:", prediction)
