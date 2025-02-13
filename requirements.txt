@@ -3,3 +3,4 @@ gdown
 tensorflow
 numpy
 pillow
+matplotlib
